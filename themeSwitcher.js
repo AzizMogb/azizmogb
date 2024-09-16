@@ -9,6 +9,20 @@ function initThemeSwitcher() {
   addListeners();
 }
 
+function applyScheme(scheme) {
+  let schemeToApply = scheme;
+  if (schemeToApply === "auto") {
+    schemeToApply = getPreferredScheme();
+  }
+  rootElement.setAttribute("data-theme", schemeToApply);
+}
+
+function getPreferredScheme() {
+  return mediaQuery.matches
+    ? "dark"
+    : "light";
+}
+
 function addListeners() {
   document.querySelectorAll("[data-theme-switcher]").forEach((button) => {
     button.addEventListener("click", (event) => {
@@ -29,20 +43,6 @@ function setScheme(newScheme) {
     localStorage.setItem(STORAGE_KEY, newScheme);
     applyScheme(newScheme);
   }
-}
-
-function applyScheme(scheme) {
-  let schemeToApply = scheme;
-  if (schemeToApply === "auto") {
-    schemeToApply = getPreferredScheme();
-  }
-  rootElement.setAttribute("data-theme", schemeToApply);
-}
-
-function getPreferredScheme() {
-  return mediaQuery.matches
-    ? "dark"
-    : "light";
 }
 
 // Initialize the theme switcher
